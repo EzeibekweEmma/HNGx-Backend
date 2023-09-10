@@ -1,11 +1,12 @@
 const express = require("express");
+const moment = require("moment");
 const app = express();
 const port = 8888;
 // Define a function to generate the response data
 const response = (slack_name = "Ezeibekwe Emmanuel", track = "backend") => {
     const date = new Date();
-    // Format the date and time as an ISO string (UTC format)
-    const utc_time = date.toISOString();
+    // Format the date and time using moment format
+    const utc_time = moment().utc().format();
     // Get the current day of the week (e.g., "Monday")
     const current_day = date.toLocaleString("en-us", { weekday: "long" });
 

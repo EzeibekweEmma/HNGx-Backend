@@ -8,7 +8,11 @@ This code demonstrates how to create a simple Node.js application using the [Exp
 
 #### Deployment Link
 
-**[link]()**
+**[https://hngx-backend-stage-one-task.vercel.app/api](https://hngx-backend-stage-one-task.vercel.app/api?slack_name=Ezeibekwe%20Emmanuel&track=backend/api)**
+
+```
+https://hngx-backend-stage-one-task.vercel.app/api?slack_name=example_name&track=example_track
+```
 
 ## Getting Started
 

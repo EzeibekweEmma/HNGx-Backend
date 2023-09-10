@@ -18,6 +18,7 @@
     },
     "homepage": "https://github.com/EzeibekweEmma/HNGx-Backend/blob/main/hngx-stage-one/README.md",
     "devDependencies": {
+        "moment": "^2.29.4",
         "nodemon": "^3.0.1"
     },
     "dependencies": {
