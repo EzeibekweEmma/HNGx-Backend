@@ -67,7 +67,7 @@ The response will be in JSON format, including information about the specified `
     "current_day": "Monday",
     "utc_time": "2023-08-21T15:04:05.123Z",
     "track": "frontend",
-    "github_file_url": "https://github.com/ezeibekweemma/HNGx-Backend/blob/main/index.js",
+    "github_file_url": "https://github.com/EzeibekweEmma/HNGx-Backend/blob/main/hngx-stage-one/index.js",
     "github_repo_url": "https://github.com/ezeibekweemma/HNGx-Backend",
     "status_code": 200
 }
