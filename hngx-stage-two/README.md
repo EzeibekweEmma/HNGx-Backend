@@ -4,6 +4,9 @@
 
 The **Person API** is a simple RESTful API built with Node.js, Express, and MongoDB for managing person data. It provides basic CRUD (Create, Read, Update, Delete) operations for person entities.
 
+![UML Diagram](./UML_Diagram.png)
+**UML Diagram**
+
 ---
 
 ## Getting Started
@@ -39,6 +42,7 @@ Before you can run the Person API, ensure you have the following software instal
 
    ```env
    MONGO_URL=your-mongodb-connection-url
+   PORT=8888
    ```
 
 ---
@@ -55,7 +59,7 @@ npm start
 
 <!-- TODO -->
 
-The server will start on port 8888 by default. You can change the port by modifying the `port` variable in `index.js`.
+The server will start on port 8888 by default. You can change the port by modifying the `port` variable in `index.js` or in the `.env`.
 
 ### Endpoints
 
