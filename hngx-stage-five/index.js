@@ -24,6 +24,9 @@ mongoose
   })
 
 // Route
+app.get('/', (req, res) => {
+  res.send("<h2>Hello 👋, move to <a href='/api'>/api</a></h2>")
+})
 app.use('/api', routes)
 
 // Start the server
