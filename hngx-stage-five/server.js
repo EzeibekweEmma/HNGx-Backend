@@ -50,7 +50,7 @@ app.get('/api', (req, res) => {
 })
 
 // Endpoint to get all videos
-app.get('/videos', async (req, res) => {
+app.get('/api/videos', async (req, res) => {
   try {
     const videos = await Video.find()
     res.status(200).json(videos)
@@ -61,7 +61,7 @@ app.get('/videos', async (req, res) => {
 })
 
 // Endpoint to get a video by ID
-app.get('/videos/:videoId', async (req, res) => {
+app.get('/api/videos/:videoId', async (req, res) => {
   try {
     const { videoId } = req.params
     const video = await Video.findById(videoId)
@@ -78,7 +78,7 @@ app.get('/videos/:videoId', async (req, res) => {
 })
 
 // Endpoint to start a new video session
-app.post('/start-video', async (req, res) => {
+app.post('/api/start-video', async (req, res) => {
   try {
     const sessionId = uuidv4()
     videoChunks[sessionId] = []
@@ -96,7 +96,7 @@ app.post('/start-video', async (req, res) => {
 
 // Endpoint to upload video chunks
 app.post(
-  '/upload-chunk/:sessionId',
+  '/api/upload-chunk/:sessionId',
   upload.single('chunk'),
   async (req, res) => {
     try {
@@ -130,7 +130,7 @@ app.post(
 )
 
 // Endpoint to finish the video session
-app.post('/finish-video/:sessionId', async (req, res) => {
+app.post('/api/finish-video/:sessionId', async (req, res) => {
   try {
     const { sessionId } = req.params
 

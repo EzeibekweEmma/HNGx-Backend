@@ -50,13 +50,13 @@ The server should now be running on the specified port (default is 3000).
 
 #### Start a New Video Session
 
-- **Endpoint:** POST `/start-video`
+- **Endpoint:** POST `/api/start-video`
 - **Description:** Initiates a new video recording session and creates an S3 bucket for storing video chunks.
 - **Response:** A JSON object containing the `sessionId` for the new session.
 
 #### Upload Video Chunks
 
-- **Endpoint:** POST `/upload-chunk/:sessionId`
+- **Endpoint:** POST `/api/upload-chunk/:sessionId`
 - **Description:** Uploads video chunks to the server. Video chunks are accumulated in memory until enough data is received to upload to S3.
 - **Request Body:** Video chunk data (multipart/form-data).
 - **Response:** JSON response indicating successful upload or chunk received.
@@ -75,7 +75,7 @@ The server should now be running on the specified port (default is 3000).
 
 #### Finish Video Session
 
-- **Endpoint:** POST `/finish-video/:sessionId`
+- **Endpoint:** POST `/api/finish-video/:sessionId`
 - **Description:** Transcribes the video using Deepgram, saves the transcription and video URL to MongoDB, and completes the video processing.
 - **Response:** A JSON object confirming video processing initiation.
 
@@ -83,13 +83,13 @@ The server should now be running on the specified port (default is 3000).
 
 To use this server with a frontend application for video recording and processing, follow these steps:
 
-1. Set up your frontend application to capture and send video data to the server as video chunks using the `/upload-chunk/:sessionId` endpoint.
+1. Set up your frontend application to capture and send video data to the server as video chunks using the `/api/upload-chunk/:sessionId` endpoint.
 
-2. Start a new video session using the `/start-video` endpoint when the user initiates video recording. Save the `sessionId` returned by the server.
+2. Start a new video session using the `/api/start-video` endpoint when the user initiates video recording. Save the `sessionId` returned by the server.
 
 3. Continuously send video chunks to the server as they are recorded.
 
-4. When video recording is complete, send a request to the `/finish-video/:sessionId` endpoint, including the `sessionId`. The server will transcribe the video using Deepgram, save the transcription and video URL to MongoDB, and provide a response confirming video processing initiation.
+4. When video recording is complete, send a request to the `/api/finish-video/:sessionId` endpoint, including the `sessionId`. The server will transcribe the video using Deepgram, save the transcription and video URL to MongoDB, and provide a response confirming video processing initiation.
 
 5. You can later retrieve video data, including transcriptions, from the MongoDB database.
 
