@@ -61,6 +61,18 @@ The server should now be running on the specified port (default is 3000).
 - **Request Body:** Video chunk data (multipart/form-data).
 - **Response:** JSON response indicating successful upload or chunk received.
 
+### Get All Videos
+
+- **Endpoint:** GET /videos
+- **Description:** Retrieves all videos stored in the MongoDB database.
+- **Response:** A JSON array of video objects.
+
+### Get Video by ID
+
+- **Endpoint:** GET /videos/:videoId
+- **Description:** Retrieves a specific video by its unique ID.
+- **Response:** A JSON object representing the video.
+
 #### Finish Video Session
 
 - **Endpoint:** POST `/finish-video/:sessionId`
