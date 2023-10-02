@@ -3,11 +3,14 @@ const AWS = require('aws-sdk')
 const multer = require('multer')
 const { v4: uuidv4 } = require('uuid')
 const axios = require('axios')
-const mongoose = require('mongoose') // Import Mongoose
+const mongoose = require('mongoose')
+const cors = require('cors')
 require('dotenv').config()
 
 const app = express()
 const port = process.env.PORT || 3000
+
+app.use(cors())
 
 // Initialize AWS S3
 AWS.config.update({
