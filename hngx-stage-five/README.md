@@ -67,28 +67,21 @@ To upload a video, make a POST request to `http://localhost:3000/api` with the v
 
 To retrieve a list of all uploaded videos, make a GET request to `http://localhost:3000/api`. The server will respond with a JSON array of video names.
 
-Example using cURL:
-
-```bash
-curl http://localhost:3000/api
-```
+Example
+`GET http://localhost:3000/api`
 
 #### Retrieving Video Transcript
 
 To retrieve the transcript of a specific video, make a GET request to `http://localhost:3000/api/transcript/:filename`, where `:filename` is the name of the video. The server will respond with the transcript text if available.
 
-Example using cURL:
+Example
+`GET http://localhost:3000/api/transcript/video.mp4`
 
-```bash
-curl http://localhost:3000/api/transcript/video.mp4
-```
 
 #### Accessing Video Files
 
 To access a specific video file, make a GET request to `http://localhost:3000/api/:filename`, where `:filename` is the name of the video. The server will stream the video file to the client.
 
 Example using a web browser:
+`GET http://localhost:3000/api/video.mp4`
 
-```
-http://localhost:3000/api/video.mp4
-```
