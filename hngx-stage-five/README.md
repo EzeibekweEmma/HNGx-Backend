@@ -1,98 +1,94 @@
 # Stage Five Task
 
-## Video Processing Server
+## Video Upload and Transcription Service
 
-This Node.js server provides an API for recording, uploading, transcribing, and storing videos using AWS S3, Deepgram, and MongoDB. It's designed to handle video recording from a frontend application.
+### Chrome Video Recording Extension
+
+This repository contains a Node.js application that provides a service for uploading videos, storing them in a database, and transcribing their audio content. It utilizes Express.js for creating a web server, Multer for handling file uploads, Supabase for database operations, FFmpeg for audio extraction, and Deepgram for audio transcription.
 
 ### Prerequisites
 
-Before running the server, ensure you have the following:
+Before running the application, make sure you have the following prerequisites installed:
 
-- Node.js and npm installed on your machine.
-- An AWS S3 account with access credentials (AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY).
-- A Deepgram account with an API key (DEEPGRAM_API_KEY).
-- MongoDB installed and running, or access to a MongoDB database.
+- Node.js and npm: [Download and install Node.js](https://nodejs.org/).
+- FFmpeg: [Download FFmpeg](https://www.ffmpeg.org/download.html) and ensure it's in your system's PATH.
 
-### Installation
+### Getting Started
 
 1. Clone this repository to your local machine:
 
    ```bash
    git clone https://github.com/EzeibekweEmma/HNGx-Backend.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
    cd ./HNGx-Backend/hngx-stage-five
    ```
 
-2. Install the project dependencies:
+3. Install the project dependencies:
 
    ```bash
    npm install
    ```
 
-3. Create a `.env` file in the project root directory and add the following environment variables:
+4. Create a `.env` file in the project root and add your Deepgram API key:
 
-   ```dotenv
-   PORT=3000
-   AWS_ACCESS_KEY_ID=your_aws_access_key_id
-   AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
-   DEEPGRAM_API_KEY=your_deepgram_api_key
-   MONGO_URL=your_mongodb_connection_string
+   ```env
+   DEEPGRAM_API_KEY=your_deepgram_api_key_here
    ```
 
-4. Start the server:
+5. Configure Supabase:
+
+   - Set up a Supabase project and create a new table named "Videos" with the following columns:
+     - `id` (bigint, primary key)
+     - `created_at` (timestamp with time zone, not null, default now())
+     - `name` (character varying)
+     - `path` (character varying)
+     - `transcript` (text)
+   - Update the Supabase connection details in `utils/db.js` to match your project.
+
+6. Start the application:
 
    ```bash
    npm start
    ```
 
-The server should now be running on the specified port (default is 3000).
+The application should now be running on `http://localhost:3000`.
 
-## API Endpoints
+### Usage
 
-#### Start a New Video Session
+#### Uploading Videos
 
-- **Endpoint:** POST `/api/start-video`
-- **Description:** Initiates a new video recording session and creates an S3 bucket for storing video chunks.
-- **Response:** A JSON object containing the `sessionId` for the new session.
+To upload a video, make a POST request to `http://localhost:3000/api` with the video file attached as a `video` field in the form-data. The server will store the video in the specified directory and add its information to the database.
 
-#### Upload Video Chunks
+#### Retrieving Videos
 
-- **Endpoint:** POST `/api/upload-chunk/:sessionId`
-- **Description:** Uploads video chunks to the server. Video chunks are accumulated in memory until enough data is received to upload to S3.
-- **Request Body:** Video chunk data (multipart/form-data).
-- **Response:** JSON response indicating successful upload or chunk received.
+To retrieve a list of all uploaded videos, make a GET request to `http://localhost:3000/api`. The server will respond with a JSON array of video names.
 
-### Get All Videos
+Example using cURL:
 
-- **Endpoint:** GET /videos
-- **Description:** Retrieves all videos stored in the MongoDB database.
-- **Response:** A JSON array of video objects.
+```bash
+curl http://localhost:3000/api
+```
 
-### Get Video by ID
+#### Retrieving Video Transcript
 
-- **Endpoint:** GET /videos/:videoId
-- **Description:** Retrieves a specific video by its unique ID.
-- **Response:** A JSON object representing the video.
+To retrieve the transcript of a specific video, make a GET request to `http://localhost:3000/api/transcript/:filename`, where `:filename` is the name of the video. The server will respond with the transcript text if available.
 
-#### Finish Video Session
+Example using cURL:
 
-- **Endpoint:** POST `/api/finish-video/:sessionId`
-- **Description:** Transcribes the video using Deepgram, saves the transcription and video URL to MongoDB, and completes the video processing.
-- **Response:** A JSON object confirming video processing initiation.
+```bash
+curl http://localhost:3000/api/transcript/video.mp4
+```
 
-### Frontend Integration
+#### Accessing Video Files
 
-To use this server with a frontend application for video recording and processing, follow these steps:
+To access a specific video file, make a GET request to `http://localhost:3000/api/:filename`, where `:filename` is the name of the video. The server will stream the video file to the client.
 
-1. Set up your frontend application to capture and send video data to the server as video chunks using the `/api/upload-chunk/:sessionId` endpoint.
+Example using a web browser:
 
-2. Start a new video session using the `/api/start-video` endpoint when the user initiates video recording. Save the `sessionId` returned by the server.
-
-3. Continuously send video chunks to the server as they are recorded.
-
-4. When video recording is complete, send a request to the `/api/finish-video/:sessionId` endpoint, including the `sessionId`. The server will transcribe the video using Deepgram, save the transcription and video URL to MongoDB, and provide a response confirming video processing initiation.
-
-5. You can later retrieve video data, including transcriptions, from the MongoDB database.
-
----
-
-This README provides an overview of the video processing server and instructions on how to set it up and integrate it with a frontend application. Make sure to replace placeholders like `your_aws_access_key_id` with your actual credentials and customize the frontend integration as needed.
+```
+http://localhost:3000/api/video.mp4
+```

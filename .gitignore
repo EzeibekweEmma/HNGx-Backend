@@ -2,3 +2,5 @@ node_modules*
 private*
 .env*
 .vscode*
+utils*
+another_try*
